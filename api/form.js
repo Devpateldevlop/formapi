@@ -10,7 +10,7 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('MongoDB Connected...'))
 .catch((err) => console.log('MongoDB connection error: ' + err));
 
-app.post('/', async (req, res) => {
+app.post('/api/form', async (req, res) => {
     try {
         const form = new form(req.body);
         const savedform = await form.save();
@@ -53,8 +53,9 @@ app.put('/:id', async (req, res) => {
 });
 
 // Delete a form entry by ID
-app.delete('/:id', async (req, res) => {
+app.delete('/api/form', async (req, res) => {
     try {
+        await form.deleteMany({});
         const deletedform = await form.findByIdAndDelete(req.params.id);
         if (!deletedform) return res.status(404).json({ message: 'form not found' });
         res.status(200).json({ message: 'form deleted successfully' });
