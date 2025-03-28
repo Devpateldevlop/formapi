@@ -1,5 +1,5 @@
 const express = require('express');
-const Form = require('../model/form'); // Adjust the path if necessary
+const form = require('../model/form'); // Adjust the path if necessary
 const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -14,9 +14,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 app.post('/', async (req, res) => {
     try {
-        const form = new Form(req.body);
-        const savedForm = await form.save();
-        res.status(201).json(savedForm);
+        const form = new form(req.body);
+        const savedform = await form.save();
+        res.status(201).json(savedform);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -25,7 +25,7 @@ app.post('/', async (req, res) => {
 // Read all form entries
 app.get('/api/form', async (req, res) => {
     try {
-        const forms = await Form.find();
+        const forms = await form.find();
         res.status(200).json(forms);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -35,8 +35,8 @@ app.get('/api/form', async (req, res) => {
 // Read a single form entry by ID
 app.get('/:id', async (req, res) => {
     try {
-        const form = await Form.findById(req.params.id);
-        if (!form) return res.status(404).json({ message: 'Form not found' });
+        const form = await form.findById(req.params.id);
+        if (!form) return res.status(404).json({ message: 'form not found' });
         res.status(200).json(form);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -46,9 +46,9 @@ app.get('/:id', async (req, res) => {
 // Update a form entry by ID
 app.put('/:id', async (req, res) => {
     try {
-        const updatedForm = await Form.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedForm) return res.status(404).json({ message: 'Form not found' });
-        res.status(200).json(updatedForm);
+        const updatedform = await form.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedform) return res.status(404).json({ message: 'form not found' });
+        res.status(200).json(updatedform);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -57,9 +57,9 @@ app.put('/:id', async (req, res) => {
 // Delete a form entry by ID
 app.delete('/:id', async (req, res) => {
     try {
-        const deletedForm = await Form.findByIdAndDelete(req.params.id);
-        if (!deletedForm) return res.status(404).json({ message: 'Form not found' });
-        res.status(200).json({ message: 'Form deleted successfully' });
+        const deletedform = await form.findByIdAndDelete(req.params.id);
+        if (!deletedform) return res.status(404).json({ message: 'form not found' });
+        res.status(200).json({ message: 'form deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
