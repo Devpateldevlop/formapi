@@ -4,6 +4,13 @@ const app = express();
 const router = express.Router();
 
 // Create a new form entry
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log('MongoDB Connected...'))
+.catch((err) => console.log('MongoDB connection error: ' + err));
+
 app.post('/', async (req, res) => {
     try {
         const form = new Form(req.body);
