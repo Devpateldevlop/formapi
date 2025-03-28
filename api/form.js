@@ -3,7 +3,8 @@ const form = require('../model/form'); // Adjust the path if necessary
 const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // Create a new form entry
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
