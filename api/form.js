@@ -28,10 +28,10 @@ app.post('/api/form', async (req, res) => {
             return res.status(400).json({ message: 'Expected an array of form data' });
         }
         const savedForms = await form.insertMany(req.body);
+        const savedform = await form.save();
         res.status(201).json(savedForms);
 
         // const form = new form(req.body);
-        // const savedform = await form.save();
         // res.status(201).json(savedform);
     } catch (error) {
         res.status(400).json({ message: error.message });
