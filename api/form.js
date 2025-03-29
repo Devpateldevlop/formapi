@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const cors = require('cors');
 
+
+
 app.use(cors({
     origin: '*', // Allow all domains or restrict to your frontend's domain
     methods: ['GET', 'POST','PUT','DELETE', 'OPTIONS'], // Allowed HTTP methods
