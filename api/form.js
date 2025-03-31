@@ -48,18 +48,6 @@ app.get('/api/form', async (req, res) => {
     }
 });
 
-// Read a single form entry by ID
-app.get('/:id', async (req, res) => {
-    try {
-        const form = await form.findById(req.params.id);
-        if (!form) return res.status(404).json({ message: 'form not found' });
-        res.status(200).json(form);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Update a form entry by ID
 app.put('/:id', async (req, res) => {
     try {
         const updatedform = await form.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -74,7 +62,6 @@ app.put('/:id', async (req, res) => {
 app.delete('/api/form', async (req, res) => {
     try {
         await form.deleteMany({});
-        const deletedform = await form.findByIdAndDelete(req.params.id);
         if (!deletedform) return res.status(404).json({ message: 'form not found' });
         res.status(200).json({ message: 'form deleted successfully' });
     } catch (error) {
