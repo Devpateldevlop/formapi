@@ -62,7 +62,7 @@ app.put('/:id', async (req, res) => {
 app.delete('/api/form', async (req, res) => {
     try {
         await form.deleteMany({});
-        if (!deletedform) return res.status(404).json({ message: 'form not found' });
+        // if (!deletedform) return res.status(404).json({ message: 'form not found' });
         res.status(200).json({ message: 'form deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
